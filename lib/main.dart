@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 void main() {
   runApp(
     const MaterialApp(
@@ -25,15 +26,7 @@ class HomeScreen extends StatelessWidget {
     Intl.defaultLocale = Localizations.localeOf(context).toString();
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const TextField(),
-            Text(
-             DateFormat.yMEd().format(DateTime.now()), 
-            ),
-          ],
-        ),
+        child: Image.asset('assets/saku.png'),
       ),
     );
   }

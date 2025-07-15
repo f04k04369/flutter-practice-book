@@ -24,5 +24,7 @@ dev_dependencies:
 
 flutter:
   generate: true
+  assets:
+  - assets/saku.png
 
   uses-material-design: true
