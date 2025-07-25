@@ -14,15 +14,27 @@ final _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const FirstScreen(),
+      routes: [
+        GoRoute(
+          path: 'second',
+          builder: (context, state) => const SecondScreen(),
+          routes: [
+            GoRoute(
+              path: 'third',
+              builder: (context, state) => const ThirdScreen(),
+            ),
+          ],
+        ),
+      ],
     ),
-    GoRoute(
-      path: '/second',
-      builder: (context, state) => const SecondScreen(),
-    ),
-    GoRoute(
-      path: '/third',
-      builder: (context, state) => const ThirdScreen(),
-    ),
+    // GoRoute(
+    //   path: '/second',
+    //   builder: (context, state) => const SecondScreen(),
+    // ),
+    // GoRoute(
+    //   path: '/third',
+    //   builder: (context, state) => const ThirdScreen(), 
+    // ),
   ],
 );
 
@@ -40,15 +52,22 @@ class FirstScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
+              child: const Text('FirstからFirstへ'),
+              onPressed: ( ) {
+                GoRouter.of(context).push('/');
+              }, 
+            ),
+ 
+            ElevatedButton(
               child: const Text('FirstからSecontへ'),
               onPressed: ( ) {
-                GoRouter.of(context).go('/second');
+                GoRouter.of(context).push('/second');
               }, 
             ),
              ElevatedButton(
               child: const Text('FirstからThirdへ'),
               onPressed: ( ) {
-                GoRouter.of(context).go('/third');
+                GoRouter.of(context).go('/second/third');
               }, 
             ),
          ],
@@ -72,15 +91,21 @@ class SecondScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: const Text('SecondからThirdへ'),
+              child: const Text('SecondからSecondへ'),
               onPressed: ( ) {
-                GoRouter.of(context).go('/third');
+                GoRouter.of(context).push('/second');
               }, 
             ),
-             ElevatedButton(
+            ElevatedButton(
+              child: const Text('SecondからThirdへ'),
+              onPressed: ( ) {
+                GoRouter.of(context).push('/second/third');
+              }, 
+            ),
+            ElevatedButton(
               child: const Text('戻る'),
               onPressed: ( ) {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop();
               }, 
             ),
          ],
@@ -112,7 +137,7 @@ class ThirdScreen extends StatelessWidget {
              ElevatedButton(
               child: const Text('戻る'),
               onPressed: ( ) {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop();
               }, 
             ),
          ],
