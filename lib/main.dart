@@ -1,148 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:practice_book/start_screen.dart';
+import 'package:practice_book/l10n/app_localizations.dart';
 
 void main() {
-  runApp(
-    MaterialApp.router(
-      routerConfig: _router,
-    ),
-  );
+  runApp(const MyApp());
 }
 
-final _router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const FirstScreen(),
-      routes: [
-        GoRoute(
-          path: 'second',
-          builder: (context, state) => const SecondScreen(),
-          routes: [
-            GoRoute(
-              path: 'third',
-              builder: (context, state) => const ThirdScreen(),
-            ),
-          ],
-        ),
-      ],
-    ),
-    // GoRoute(
-    //   path: '/second',
-    //   builder: (context, state) => const SecondScreen(),
-    // ),
-    // GoRoute(
-    //   path: '/third',
-    //   builder: (context, state) => const ThirdScreen(), 
-    // ),
-  ],
-);
-
-class FirstScreen extends StatelessWidget {
-  const FirstScreen({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('FirstScreen'),
+    return MaterialApp(
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
+      title: 'Edit Snap',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: const Text('FirstからFirstへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).push('/');
-              }, 
-            ),
- 
-            ElevatedButton(
-              child: const Text('FirstからSecontへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).push('/second');
-              }, 
-            ),
-             ElevatedButton(
-              child: const Text('FirstからThirdへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).go('/second/third');
-              }, 
-            ),
-         ],
-        ),
-      ),
-    );
-  }
-}
-
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SecondtScreen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: const Text('SecondからSecondへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).push('/second');
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text('SecondからThirdへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).push('/second/third');
-              }, 
-            ),
-            ElevatedButton(
-              child: const Text('戻る'),
-              onPressed: ( ) {
-                GoRouter.of(context).pop();
-              }, 
-            ),
-         ],
-        ),
-      ),
-    );
-  }
-}
-
-class ThirdScreen extends StatelessWidget {
-  const ThirdScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ThirdScreen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: const Text('ThirdからFirstへ'),
-              onPressed: ( ) {
-                GoRouter.of(context).go('/');
-              }, 
-            ),
-             ElevatedButton(
-              child: const Text('戻る'),
-              onPressed: ( ) {
-                GoRouter.of(context).pop();
-              }, 
-            ),
-         ],
-        ),
-      ),
+      home: const StartScreen(),
     );
   }
 }
