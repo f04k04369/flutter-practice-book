@@ -110,6 +110,24 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'開始する'**
   String get start;
+
+  /// No description provided for @imageSelectScreenTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'画像を選択'**
+  String get imageSelectScreenTitle;
+
+  /// No description provided for @imageSelect.
+  ///
+  /// In ja, this message translates to:
+  /// **'画像を選ぶ'**
+  String get imageSelect;
+
+  /// No description provided for @imageEdit.
+  ///
+  /// In ja, this message translates to:
+  /// **'画像を編集する'**
+  String get imageEdit;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

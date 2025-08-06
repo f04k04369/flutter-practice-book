@@ -21,4 +21,13 @@ class L10nJa extends L10n {
 
   @override
   String get start => '開始する';
+
+  @override
+  String get imageSelectScreenTitle => '画像を選択';
+
+  @override
+  String get imageSelect => '画像を選ぶ';
+
+  @override
+  String get imageEdit => '画像を編集する';
 }
