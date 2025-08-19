@@ -30,4 +30,7 @@ class L10nJa extends L10n {
 
   @override
   String get imageEdit => '画像を編集する';
+
+  @override
+  String get imageEditScreenTitle => '画像を編集';
 }

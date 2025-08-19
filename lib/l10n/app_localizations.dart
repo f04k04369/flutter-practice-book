@@ -128,6 +128,12 @@ abstract class L10n {
   /// In ja, this message translates to:
   /// **'画像を編集する'**
   String get imageEdit;
+
+  /// No description provided for @imageEditScreenTitle.
+  ///
+  /// In ja, this message translates to:
+  /// **'画像を編集'**
+  String get imageEditScreenTitle;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

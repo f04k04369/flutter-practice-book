@@ -17,11 +17,13 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class Assets {
   const Assets._();
 
+  static const SvgGenImage flipIcon = SvgGenImage('assets/flip_icon.svg');
   static const SvgGenImage rectangle = SvgGenImage('assets/rectangle.svg');
+  static const SvgGenImage rotateIcon = SvgGenImage('assets/rotate_icon.svg');
   static const AssetGenImage saku = AssetGenImage('assets/saku.png');
 
   /// List of all assets
-  static List<dynamic> get values => [rectangle, saku];
+  static List<dynamic> get values => [flipIcon, rectangle, rotateIcon, saku];
 }
 
 class AssetGenImage {

@@ -48,3 +48,12 @@ app.*.map.json
 .fvm/
 
 /test
+
+/ios
+
+/linux
+
+/macos
+
+/windows
+

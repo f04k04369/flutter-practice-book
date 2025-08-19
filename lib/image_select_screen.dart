@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:practice_book/l10n/app_localizations.dart';
+import 'package:practice_book/edit_snap_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as image_lib;
 
@@ -8,7 +9,7 @@ class ImageSelectScreen extends StatefulWidget {
   const ImageSelectScreen({super.key});
 
   @override
-  State<ImageSelectScreen> createState => _ImageSelectScreensState();
+  State<ImageSelectScreen> createState() => _ImageSelectScreensState();
 }
 
 class _ImageSelectScreensState extends State<ImageSelectScreen> {
@@ -43,24 +44,35 @@ class _ImageSelectScreensState extends State<ImageSelectScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = L10n.of(context);
+    final imageBitmap = _imageBitmap;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(l10n.imageSelectScreenTitle),
       ),
-      body: Center(
+      body: Center(           
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (imageBitmap != null) Image.memory(imageBitmap),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _selectImage(),
               child: Text(l10n.imageSelect),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(l10n.imageEdit),
-            ),
-          ],
+            if (imageBitmap != null)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ImageEditScreen(
+                        imageBitmap: imageBitmap
+                      ),
+                    ),
+                  );
+                },
+                child: Text(l10n.imageEdit),
+              ),
+            ],
         ),
       ),
     );
