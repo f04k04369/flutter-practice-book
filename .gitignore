@@ -1,59 +1,93 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart
 .dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
-/build/
+build/
+.flutter-plugins
+.flutter-plugins-deps
+.flutter-plugins-deps
+.generated/
 
-# Symbolication related
-app.*.symbols
+# Android
+**/android/.gradle/
+**/android/*.iml
+**/android/local.properties
+**/android/app/build/
+**/android/.cxx/
+**/android/captures/
 
-# Obfuscation related
-app.*.map.json
+# iOS
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/Podfile.lock
+**/ios/Runner.xcworkspace/
+**/ios/Flutter/FlutterPluginRegistrant/GeneratedPluginRegistrant.*
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.framework
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# macOS
+**/macos/Pods/
+**/macos/Podfile.lock
+**/macos/Runner.xcworkspace/
+**/macos/Flutter/Flutter.framework
+**/macos/Flutter/ephemeral/
+**/macos/Flutter/Flutter.podspec
 
-# FVM Version Cache
-.fvm/
+# Xcode
+.DS_Store
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcworkspace
 
-/test
+# CocoaPods
+Pods/
 
-/ios
+# VS Code
+.vscode/
 
-/linux
+# JetBrains
+.idea/
+*.iml
 
-/macos
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
 
-/windows
+# Thumbnails
+._*
 
+# Node
+node_modules/
+
+# Others
+*.log
+*.tmp
+*.swp
+
+# Secrets
+.env
+
+# Flutter generated
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Lockfiles (optional to ignore)
+# pubspec.lock
+
+# Local executables
+**/bin/cache/
+
+# Archives
+*.zip
+*.tar.gz
