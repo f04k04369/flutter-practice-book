@@ -309,7 +309,9 @@ Thumbs.db
 
 ---
 
-## 🌱 git-flow におけるブランチ運用とリモートへのアップ手順
+## 13. git-flow 運用チュートリアル
+
+このセクションでは、`git-flow` の各ブランチ運用とリモートリポジトリへの反映手順を具体例で解説します。
 
 ### 1. 基本の考え方
 
@@ -327,13 +329,13 @@ Thumbs.db
 
 例: ログイン機能を追加したい場合
 
-1.  **develop ブランチに移動して最新化**
+1.  **`develop` ブランチに移動して最新化**
     ```bash
     git checkout develop
     git pull origin develop
     ```
 
-2.  **feature ブランチを作成**
+2.  **`feature` ブランチを作成**
     ```bash
     git checkout -b feature/login-ui
     ```
@@ -352,24 +354,28 @@ Thumbs.db
     ```bash
     git push -u origin feature/login-ui
     ```
-
-📌 `-u` を付けることで「次回以降は `git push` だけでOK」になります。
+    > 📌 `-u` を付けることで、次回以降は `git push` だけで同じリモートブランチに push できます。
 
 ### 3. Pull Request を作成してマージ
 
-1.  GitHub/GitLab で `feature/login-ui` → `develop` の PR を作成
-2.  レビューを通したらマージ
-3.  不要になったローカル/リモートブランチを削除
+1.  GitHub/GitLab などで `feature/login-ui` → `develop` の Pull Request を作成します。
+2.  レビューが完了したらマージします。
+3.  不要になったローカル/リモートブランチを削除します。
     ```bash
+    # develop ブランチに移動して最新化
     git checkout develop
     git pull
-    git branch -d feature/login-ui        # ローカル削除
-    git push origin --delete feature/login-ui   # リモート削除
+
+    # ローカルブランチを削除
+    git branch -d feature/login-ui
+
+    # リモートブランチを削除
+    git push origin --delete feature/login-ui
     ```
 
 ### 4. リリースブランチの流れ
 
-1.  **develop を最新化**
+1.  **`develop` を最新化**
     ```bash
     git checkout develop
     git pull origin develop
@@ -378,20 +384,21 @@ Thumbs.db
     ```bash
     git checkout -b release/1.0.0
     ```
-3.  **バージョン更新やテスト修正**
+3.  **バージョン更新や最終テストなど**
     ```bash
+    # 例: バージョンファイルを更新
     git add .
     git commit -m "chore(release): bump version to 1.0.0"
     ```
-4.  **リモートへ**
+4.  **リモートへ push**
     ```bash
     git push -u origin release/1.0.0
     ```
-→ PR を作成して `release/1.0.0` → `main` と `release/1.0.0` → `develop` にマージ。
+    その後、`release/1.0.0` → `main` と `release/1.0.0` → `develop` への Pull Request を作成してマージします。
 
 ### 5. ホットフィックスの流れ
 
-1.  **main からブランチ**
+1.  **`main` からブランチを作成**
     ```bash
     git checkout main
     git pull origin main
@@ -402,11 +409,11 @@ Thumbs.db
     git add .
     git commit -m "fix(logging): handle null values"
     ```
-3.  **リモートへ**
+3.  **リモートへ push**
     ```bash
     git push -u origin hotfix/1.0.1-logging
     ```
-→ PR を作成して `main` と `develop` の両方へマージ。
+    その後、`main` と `develop` の両方へ Pull Request を作成してマージします。
 
 ### 6. よく使うコマンド早見表
 
@@ -418,4 +425,55 @@ Thumbs.db
 | 最新化 | `git pull origin develop` |
 | タグ付け | `git tag -a v1.0.0 -m "Release 1.0.0" && git push origin v1.0.0` |
 
-👉 ここまでが 「ローカルでブランチを分けてリモートにアップ → PR」 の一連の流れです。
+---
+
+## 14. 書籍の写経用ワークフロー
+
+このセクションは、書籍の内容を写経しながら学習を進める際の推奨ワークフローです。
+
+基本的には章ごとに写経を進め、次の章へ進む際に `original` ブランチの状態に戻す、という流れを繰り返します。
+
+### 1. 基本フロー（練習の始め方）
+
+章や節ごとに `original` ブランチから練習用ブランチを作成します。
+
+```bash
+# original ブランチに移動して最新の状態にする
+git checkout original
+git pull
+
+# 練習用ブランチを作成（例: 1章の練習）
+git checkout -b feature/ch01-try-001
+```
+
+ブランチを作成したら、コードの写経や修正を行い、適宜コミットします。
+
+```bash
+git add -A
+git commit -m "ch01: Step 1 の実装"
+```
+
+練習が終わったブランチは、`git flow feature finish` を使って `develop` にマージしても良いですし、「練習の記録」としてそのまま残しておいても構いません。
+
+### 2. 演習の初期状態に戻す方法
+
+#### A. 現在のブランチで作業内容のみを初期化する（コミット履歴は維持）
+
+> ブランチのコミット履歴は残したまま、ファイルの状態だけを `original` ブランチと同じ状態に戻します。
+
+この方法は、同じ章を何度もやり直して学習したい場合に便利です。
+
+```bash
+# コミットしていない変更があれば、一時的に退避（任意）
+git stash push -m "WIP before reset"
+
+# 作業ツリーを original ブランチの状態に完全初期化
+# （注意: 追跡されていないファイルも強制的に削除されます）
+git reset --hard original
+git clean -xfd
+
+# サブモジュールがある場合
+git submodule foreach --recursive 'git reset --hard && git clean -xfd'
+```
+
+**注意:** `git clean -xfd` コマンドは、`.gitignore` で無視されていない限り、追跡対象外のファイル（例: `.env` ファイルやテスト生成物）もすべて削除します。必要なファイルは事前にバックアップするか、`.gitignore` にルールを記述してください。
